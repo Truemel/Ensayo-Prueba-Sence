@@ -37,8 +37,8 @@ class FirstFragmentListAdapter(var list: MutableList<EnsayoRoomProduct>, var onP
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.itemView.tag = list[position].id
-        holder.name.setText(list[position].name)
-        holder.price.setText(list[position].price)
+        holder.name.text = list[position].name
+        holder.price.text = list[position].price.toString()
         Picasso.get().load(list[position].image).into(holder.image)
     }
 

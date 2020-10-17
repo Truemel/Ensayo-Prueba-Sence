@@ -22,7 +22,7 @@ class FirstFragment:Fragment(), FirstFragmentListAdapter.OnProductSelectListener
         super.onCreate(savedInstanceState)
         vModel = ViewModelProvider(this).get(EnsayoViewModel::class.java)
         adapter = FirstFragmentListAdapter(mutableListOf(), this)
-        vModel.productList.observe(viewLifecycleOwner, Observer { adapter.update(it) })
+        vModel.productList.observe(this, Observer { adapter.update(it) })
     }
 
     override fun onCreateView(

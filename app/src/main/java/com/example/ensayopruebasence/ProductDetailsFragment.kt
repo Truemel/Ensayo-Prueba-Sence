@@ -15,7 +15,7 @@ import com.example.ensayopruebasence.model.room.EnsayoRoomDetail
 import com.example.ensayopruebasence.viewmodel.EnsayoViewModel
 import com.squareup.picasso.Picasso
 
-class ProductDetailsFragment(idProd:Int, context:Context):Fragment() {
+class ProductDetailsFragment(var idProd:Int, context:Context):Fragment() {
 
     private lateinit var vModel:EnsayoViewModel
     private lateinit var name:TextView
@@ -43,13 +43,14 @@ class ProductDetailsFragment(idProd:Int, context:Context):Fragment() {
         descrip = view.findViewById(R.id.description)
         lastPrice = view.findViewById(R.id.last_price)
         credits = view.findViewById(R.id.credits)
+        vModel.getDetails(idProd)
 
-        vModel.detail.observe(viewLifecycleOwner, Observer { name.setText(it.name)
-        price.setText(it.price)
+        vModel.detail.observe(viewLifecycleOwner, Observer { name.text = it.name
+        price.text = it.price.toString()
         Picasso.get().load(it.image).into(image)
-        descrip.setText(it.description)
-        lastPrice.setText(it.lastPrice)
-        credits.setText(it.credit.toString())
+        descrip.text = it.description
+        lastPrice.text = it.lastPrice.toString()
+        credits.text = it.credit.toString()
         detail = it})
 
         return view
