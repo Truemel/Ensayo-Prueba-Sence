@@ -45,13 +45,13 @@ class ProductDetailsFragment(var idProd:Int, context:Context):Fragment() {
         credits = view.findViewById(R.id.credits)
         vModel.getDetails(idProd)
 
-        vModel.detail.observe(viewLifecycleOwner, Observer { name.text = it.name
+        vModel.detail.observe(context as SecondActivity, Observer { if(it != null && !it.name.isNullOrEmpty()){name.text = it.name
         price.text = it.price.toString()
         Picasso.get().load(it.image).into(image)
         descrip.text = it.description
         lastPrice.text = it.lastPrice.toString()
         credits.text = it.credit.toString()
-        detail = it})
+        detail = it}})
 
         return view
     }
