@@ -2,6 +2,7 @@ package com.example.ensayopruebasence
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,8 +57,11 @@ class ProductDetailsFragment(var idProd:Int, context:Context):Fragment() {
         return view
     }
 
+    //Envia Email
     fun sendEmail(){
         var inten:Intent = Intent(Intent.ACTION_SEND).apply {
+            setData(Uri.parse("mailto:"))
+            setType("text/plain")
             putExtra(Intent.EXTRA_EMAIL, arrayOf("info@plaplix.cl")) // recipients
             putExtra(Intent.EXTRA_SUBJECT, "Consulta ${detail.name} id ${detail.id}")
             putExtra(Intent.EXTRA_TEXT, "Hola\n" +
@@ -67,5 +71,6 @@ class ProductDetailsFragment(var idProd:Int, context:Context):Fragment() {
         }
 
         startActivity(inten)
+        (context as SecondActivity).finish()
     }
 }

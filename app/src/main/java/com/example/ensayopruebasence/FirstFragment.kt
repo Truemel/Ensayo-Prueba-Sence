@@ -42,5 +42,6 @@ class FirstFragment:Fragment(), FirstFragmentListAdapter.OnProductSelectListener
         var inten = Intent(context, SecondActivity::class.java)
         inten.putExtra("ID", id)
         startActivity(inten)
+        (context as MainActivity).finish()
     }
 }
