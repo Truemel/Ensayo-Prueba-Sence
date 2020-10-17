@@ -1,5 +1,6 @@
 package com.example.ensayopruebasence
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ensayopruebasence.viewmodel.EnsayoViewModel
 
-class FirstFragment:Fragment() {
+class FirstFragment:Fragment(), FirstFragmentListAdapter.OnProductSelectListener {
 
     private lateinit var vModel:EnsayoViewModel
     private lateinit var recyView:RecyclerView
@@ -20,7 +21,7 @@ class FirstFragment:Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vModel = ViewModelProvider(this).get(EnsayoViewModel::class.java)
-        adapter = FirstFragmentListAdapter(mutableListOf())
+        adapter = FirstFragmentListAdapter(mutableListOf(), this)
         vModel.productList.observe(viewLifecycleOwner, Observer { adapter.update(it) })
     }
 
@@ -32,7 +33,14 @@ class FirstFragment:Fragment() {
         var view:View = inflater.inflate(R.layout.first_fragment_layout, container, false)
         recyView = view.findViewById(R.id.recycler)
         recyView.layoutManager = LinearLayoutManager(context)
+        recyView.adapter = adapter
 
         return view
+    }
+
+    override fun onProductSelected(id: Int) {
+        var inten = Intent(context, SecondActivity::class.java)
+        inten.putExtra("ID", id)
+        startActivity(inten)
     }
 }

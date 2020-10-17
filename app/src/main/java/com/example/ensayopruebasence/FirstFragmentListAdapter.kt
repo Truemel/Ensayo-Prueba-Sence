@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ensayopruebasence.model.room.EnsayoRoomProduct
 import com.squareup.picasso.Picasso
 
-class FirstFragmentListAdapter(var list: MutableList<EnsayoRoomProduct>):RecyclerView.Adapter<FirstFragmentListAdapter.Holder>(),
+class FirstFragmentListAdapter(var list: MutableList<EnsayoRoomProduct>, var onProdSelListener:OnProductSelectListener):RecyclerView.Adapter<FirstFragmentListAdapter.Holder>(),
     View.OnClickListener {
 
     class Holder(itemView: View):RecyclerView.ViewHolder(itemView){
@@ -36,6 +36,7 @@ class FirstFragmentListAdapter(var list: MutableList<EnsayoRoomProduct>):Recycle
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.itemView.tag = list[position].id
         holder.name.setText(list[position].name)
         holder.price.setText(list[position].price)
         Picasso.get().load(list[position].image).into(holder.image)
@@ -46,6 +47,10 @@ class FirstFragmentListAdapter(var list: MutableList<EnsayoRoomProduct>):Recycle
     }
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+        onProdSelListener.onProductSelected(v!!.tag as Int)
+    }
+
+    interface OnProductSelectListener{
+        fun onProductSelected(id:Int)
     }
 }
